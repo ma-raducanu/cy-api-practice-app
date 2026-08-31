@@ -1,0 +1,48 @@
+{
+  "articles": [
+    {
+      "slug": "Discover-Bondar-Academy:-Your-Gateway-to-Efficient-Learning-1",
+      "title": "First Mock Article",
+      "description": "Discover Bondar Academy's unique place in the educational landscape, where value-focused and efficient learning approaches converge. Our goal is to rapidly enhance your professional technical skills, boosting your market competitiveness and paving the way for higher-paying job opportunities. The speed of your progress is in your hands – you set the pace, and we provide the solutions and support to help you achieve your desired outcomes.",
+      "body": "Bondar Academy is a leading platform for efficient education, designed to boost your technical skills and advance your career in Quality Assurance (QA). Our program features a balanced mix of pre-recorded lectures and live sessions, allowing each student to study at their own pace and at a time that suits them. \n\nOur instructors are readily available on our Slack Workspace for support. Whether it's a quick question or a more complex issue requiring a Zoom call or Slack Huddle for screen sharing and live discussion, we're here to assist. Additionally, each class comes with a comprehensive question bank for self-assessment. Following each lecture, you have the opportunity to validate your understanding and readiness to progress to the next topic. You set the pace, and we provide the solutions to ensure you achieve your desired outcomes.\n\nSignUp today: https://www.bondaracademy.com",
+      "tagList": [
+        "qa career",
+        "Bondar Academy",
+        "QA Skills",
+        "Value-Focused"
+      ],
+      "createdAt": "2024-01-27T21:52:32.682Z",
+      "updatedAt": "2024-01-27T21:52:32.682Z",
+      "favorited": false,
+      "favoritesCount": 2218,
+      "author": {
+        "username": "Artem Bondar",
+        "bio": null,
+        "image": "https://storage.googleapis.com/bondar-academy-visuals/Android.png",
+        "following": false
+      }
+    },
+    {
+      "slug": "The-value-of-pre-recorded-video-classes.-The-most-efficient-approach-to-tranfer-the-knowledge-1",
+      "title": "Second Mock Article",
+      "description": "As educational practices evolve, video tutorials have emerged as the most efficient method for imparting theoretical knowledge. At Bondar Academy, we prioritize expertly structured and crafted video tutorials, ensuring you learn quickly and effectively and advance your skills.",
+      "body": "At Bondar Academy, we prioritize the value of your time and the efficiency of your education, distinguishing our approach from traditional colleges and live boot camps. Forget long, tedious live lectures on a fixed schedule. With us, you learn at your convenience and pace through optimized, structured video lectures. \n\nWe understand your goal is rapid knowledge acquisition. Our pre-recorded and well-organized lectures are designed precisely for this, ensuring no slowdowns from group dynamics or unrelated instructor anecdotes. \n\nDive straight into the subject matter, learn efficiently, and if questions arise, our immediate support on the Slack Workspace is there to streamline your learning process and swiftly remove any roadblocks.",
+      "tagList": [
+        "Bondar Academy",
+        "Video Lectures",
+        "Tutorials"
+      ],
+      "createdAt": "2024-01-27T21:50:38.825Z",
+      "updatedAt": "2024-01-27T21:50:38.825Z",
+      "favorited": false,
+      "favoritesCount": 483,
+      "author": {
+        "username": "Artem Bondar",
+        "bio": null,
+        "image": "https://storage.googleapis.com/bondar-academy-visuals/Android.png",
+        "following": false
+      }
+    }
+  ],
+  "articlesCount": 10
+}
