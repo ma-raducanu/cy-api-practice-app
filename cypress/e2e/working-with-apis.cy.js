@@ -32,19 +32,8 @@ it('Waiting for APIs', () => {
 })
 
 it('Delete an article', () => {
-  cy.request({
-    url: 'https://conduit-api.bondaracademy.com/api/users/login',
-    method: 'POST',
-    body: {
-      "user": {
-        "email": "mircea.alexandru.vi.raducanu@gmail.com",
-        "password": "Testing123!"
-      }
-    }
-  }).then(response => {
-    expect(response.status).to.equal(200)
-    const getAccessToken = response.body.user.token
-    const accessToken = `Token ${getAccessToken}`
+  cy.logIn()
+  cy.get('@accessToken').then(accessToken => {
     cy.request({
       url: 'https://conduit-api.bondaracademy.com/api/articles/',
       method: 'POST',
@@ -56,13 +45,12 @@ it('Delete an article', () => {
           "tagList": []
         }
       },
-      headers: { 'Authorization': accessToken }
+      headers: { 'Authorization': `Token ${accessToken}` }
     }).then(response => {
       expect(response.status).to.equal(201)
       expect(response.body.article.title).to.equal('Test Title')
     })
   })
-  cy.logIn()
   cy.contains('Test Title').click()
   cy.intercept({ method: 'GET', pathname: 'articles' }).as('articleApiCall')
   cy.contains('button', 'Delete Article').click()
@@ -70,7 +58,7 @@ it('Delete an article', () => {
   cy.get('app-article-list').should('not.contain.text', 'Test Title')
 })
 
-it.only('e2e API Test', () => {
+it('E2E API Test', () => {
   cy.request({
     url: 'https://conduit-api.bondaracademy.com/api/users/login',
     method: 'POST',
@@ -89,7 +77,7 @@ it.only('e2e API Test', () => {
       method: 'POST',
       body: {
         "article": {
-          "title": "e2e API Test",
+          "title": "E2E API Test",
           "description": "Test description",
           "body": "Test article",
           "tagList": []
@@ -98,7 +86,7 @@ it.only('e2e API Test', () => {
       headers: { 'Authorization': accessToken }
     }).then(response => {
       expect(response.status).to.equal(201)
-      expect(response.body.article.title).to.equal('e2e API Test')
+      expect(response.body.article.title).to.equal('E2E API Test')
     })
     cy.request({
       url: 'https://conduit-api.bondaracademy.com/api/articles?limit=1&offset=0',
@@ -106,7 +94,7 @@ it.only('e2e API Test', () => {
       headers: { 'Authorization': accessToken }
     }).then(response => {
       expect(response.status).to.equal(200)
-      expect(response.body.articles[0].title).to.equal('e2e API Test')
+      expect(response.body.articles[0].title).to.equal('E2E API Test')
       const slugId = response.body.articles[0].slug
       cy.request({
         url: `https://conduit-api.bondaracademy.com/api/articles/${slugId}`,
@@ -122,7 +110,7 @@ it.only('e2e API Test', () => {
       headers: { 'Authorization': accessToken }
     }).then(response => {
       expect(response.status).to.equal(200)
-      expect(response.body.articles[0].title).to.not.equal('e2e API Test')
+      expect(response.body.articles[0].title).to.not.equal('E2E API Test')
     })
   })
 })
