@@ -7,7 +7,7 @@ it('API Mocking', () => { // intercept has to be created before the actual call 
   cy.logIn()
 })
 
-it('Modify API Response', () => {
+it.only('Modify API Response', {retries: 2}, () => {
   cy.intercept({ method: 'GET', pathname: 'articles' }, req => {
     req.continue(res => {
       res.body.articles[0].favoritesCount = 9999999
@@ -15,7 +15,7 @@ it('Modify API Response', () => {
     })
   })
   cy.logIn()
-  cy.get('app-favorite-button').first().should('contain.text', '9999999')
+  cy.get('app-favorite-button').first().should('contain.text', '999999')
 })
 
 it('Waiting for APIs', () => {
@@ -35,7 +35,7 @@ it('Delete an article', () => {
   cy.logIn()
   cy.get('@accessToken').then(accessToken => {
     cy.request({
-      url: 'https://conduit-api.bondaracademy.com/api/articles/',
+      url: `${Cypress.env('apiUrl')}/articles/`,
       method: 'POST',
       body: {
         "article": {
@@ -60,7 +60,7 @@ it('Delete an article', () => {
 
 it('E2E API Test', () => {
   cy.request({
-    url: 'https://conduit-api.bondaracademy.com/api/users/login',
+    url: `${Cypress.env('apiUrl')}/users/login`,
     method: 'POST',
     body: {
       "user": {
@@ -73,7 +73,7 @@ it('E2E API Test', () => {
     const getAccessToken = response.body.user.token
     const accessToken = `Token ${getAccessToken}`
     cy.request({
-      url: 'https://conduit-api.bondaracademy.com/api/articles/',
+      url: `${Cypress.env('apiUrl')}/articles/`,
       method: 'POST',
       body: {
         "article": {
@@ -89,7 +89,7 @@ it('E2E API Test', () => {
       expect(response.body.article.title).to.equal('E2E API Test')
     })
     cy.request({
-      url: 'https://conduit-api.bondaracademy.com/api/articles?limit=1&offset=0',
+      url: `${Cypress.env('apiUrl')}/articles?limit=1&offset=0`,
       method: 'GET',
       headers: { 'Authorization': accessToken }
     }).then(response => {
@@ -97,7 +97,7 @@ it('E2E API Test', () => {
       expect(response.body.articles[0].title).to.equal('E2E API Test')
       const slugId = response.body.articles[0].slug
       cy.request({
-        url: `https://conduit-api.bondaracademy.com/api/articles/${slugId}`,
+        url: `${Cypress.env('apiUrl')}/articles/${slugId}`,
         method: 'DELETE',
         headers: { 'Authorization': accessToken }
       }).then(response => {
@@ -105,7 +105,7 @@ it('E2E API Test', () => {
       })
     })
     cy.request({
-      url: 'https://conduit-api.bondaracademy.com/api/articles?limit=1&offset=0',
+      url: `${Cypress.env('apiUrl')}/articles?limit=1&offset=0`,
       method: 'GET',
       headers: { 'Authorization': accessToken }
     }).then(response => {

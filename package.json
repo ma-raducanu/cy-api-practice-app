@@ -7,7 +7,9 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cy-run-dev": "npx cypress open --env username='testdev@test.com',password='test'",
+    "cy-run-qa": "npx cypress open --env username=$USERNAME,password=$PASSWORD"
   },
   "devDependencies": {
     "cypress": "^15.21.1"

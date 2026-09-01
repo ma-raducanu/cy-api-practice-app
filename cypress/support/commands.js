@@ -26,12 +26,12 @@
 
 Cypress.Commands.add('logIn', () => {
   cy.request({
-    url: 'https://conduit-api.bondaracademy.com/api/users/login',
+    url: `${Cypress.env('apiUrl')}/users/login`,
     method: 'POST',
     body: {
       "user": {
-        "email": "mircea.alexandru.vi.raducanu@gmail.com",
-        "password": "Testing123!"
+        "email": Cypress.env('username'),
+        "password": Cypress.env('password')
       }
     }
   }).then(response => {
