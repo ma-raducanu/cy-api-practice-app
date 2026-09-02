@@ -1,7 +1,7 @@
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
-  // allowCypressEnv: false,
+  // allowCypressEnv: true,
   env: {
     username: 'mircea.alexandru.vi.raducanu@gmail.com',
     password: 'Testing123!',
@@ -10,8 +10,9 @@ module.exports = defineConfig({
   e2e: {
     baseUrl: 'https://conduit.bondaracademy.com/',
     setupNodeEvents(on, config) {
-      config.env.username = process.env.USERNAME,
-      config.env.password = process.env.PASSWORD
+      // $env:USERNAME='mircea.alexandru.vi.raducanu@gmail.com' ; $env:PASSWORD='Testing123!' ; npm run cy-run
+      // config.env.username = process.env.USERNAME,
+      // config.env.password = process.env.PASSWORD
       return config
     },
     // retries: 2 // this applies at all times

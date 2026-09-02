@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import { faker } from '@faker-js/faker'
 
 it('API Mocking', () => { // intercept has to be created before the actual call is made by the browser
   // cy.intercept('GET', '**/tags', { fixture: 'tags.json'})
@@ -7,7 +8,7 @@ it('API Mocking', () => { // intercept has to be created before the actual call 
   cy.logIn()
 })
 
-it.only('Modify API Response', {retries: 2}, () => {
+it('Modify API Response', {retries: 2}, () => {
   cy.intercept({ method: 'GET', pathname: 'articles' }, req => {
     req.continue(res => {
       res.body.articles[0].favoritesCount = 9999999
@@ -15,7 +16,7 @@ it.only('Modify API Response', {retries: 2}, () => {
     })
   })
   cy.logIn()
-  cy.get('app-favorite-button').first().should('contain.text', '999999')
+  cy.get('app-favorite-button').first().should('contain.text', '9999999')
 })
 
 it('Waiting for APIs', () => {
@@ -31,31 +32,32 @@ it('Waiting for APIs', () => {
   })
 })
 
-it('Delete an article', () => {
+it.only('Delete an article', () => {
   cy.logIn()
+  const titleOfTheArticle = faker.person.fullName()
   cy.get('@accessToken').then(accessToken => {
     cy.request({
       url: `${Cypress.env('apiUrl')}/articles/`,
       method: 'POST',
       body: {
         "article": {
-          "title": "Test Title",
-          "description": "Test description",
-          "body": "Test article",
+          "title": titleOfTheArticle,
+          "description": faker.person.jobTitle(),
+          "body": faker.lorem.paragraph(10),
           "tagList": []
         }
       },
       headers: { 'Authorization': `Token ${accessToken}` }
     }).then(response => {
       expect(response.status).to.equal(201)
-      expect(response.body.article.title).to.equal('Test Title')
+      expect(response.body.article.title).to.equal(titleOfTheArticle)
     })
   })
-  cy.contains('Test Title').click()
+  cy.contains(titleOfTheArticle).click()
   cy.intercept({ method: 'GET', pathname: 'articles' }).as('articleApiCall')
   cy.contains('button', 'Delete Article').click()
   cy.wait('@articleApiCall')
-  cy.get('app-article-list').should('not.contain.text', 'Test Title')
+  cy.get('app-article-list').should('not.contain.text', titleOfTheArticle)
 })
 
 it('E2E API Test', () => {

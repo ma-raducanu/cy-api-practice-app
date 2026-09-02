@@ -8,10 +8,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cy-run-dev": "npx cypress open --env username='testdev@test.com',password='test'",
-    "cy-run-qa": "npx cypress open --env username=$USERNAME,password=$PASSWORD"
+    "cy-run": "npx cypress open --env username=$USERNAME,password=$PASSWORD"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.6.0",
     "cypress": "^15.21.1"
   }
 }
