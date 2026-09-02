@@ -4,5 +4,6 @@ declare namespace Cypress {
      * Opens the home page of the application.
      */
     logInToApplication(): Chainable<void>
+    uiLogIn(): Chainable<void>
   }
 }

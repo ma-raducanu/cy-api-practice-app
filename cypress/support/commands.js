@@ -39,9 +39,23 @@ Cypress.Commands.add('logInToApplication', () => {
     const accessToken = response.body.user.token
     cy.wrap(accessToken).as('accessToken')
     cy.visit('/', {
-      onBeforeLoad(win){
+      onBeforeLoad(win) {
         win.localStorage.setItem('jwtToken', accessToken)
       }
     })
   })
+})
+
+Cypress.Commands.add('uiLogIn', () => { // this will reuse the first session across all the following tests
+  cy.session('user', () => {
+    cy.visit('/')
+    cy.contains('Sign in').click()
+    cy.get('[placeholder="Email"]').type(Cypress.env('username'))
+    cy.get('[placeholder="Password"]').type(Cypress.env('password'))
+    cy.contains('button', 'Sign in').click()
+    cy.location('pathname').should('equal', '/')
+  }, {
+    cacheAcrossSpecs: true // this will allow it to run across multiple spec files
+  })
+  cy.visit('/')
 })

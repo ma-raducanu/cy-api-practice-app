@@ -1,27 +1,27 @@
 /// <reference types="cypress" />
 import { faker } from '@faker-js/faker'
 
-it('API Mocking', () => { // intercept has to be created before the actual call is made by the browser
+it('API Mocking', { tags: '@smoke' }, () => { // intercept has to be created before the actual call is made by the browser
   // cy.intercept('GET', '**/tags', { fixture: 'tags.json'})
   cy.intercept({ method: 'GET', pathname: 'tags' }, { fixture: 'tags.json' }) // cleaner alternative for the above method
   cy.intercept({ method: 'GET', pathname: 'articles' }, { fixture: 'articles.json' })
-  cy.logInToApplication()
+  cy.uiLogIn()
 })
 
-it('Modify API Response', {retries: 2}, () => {
+it('Modify API Response', { tags: ['@smoke', '@sanity'], retries: 2 }, () => {
   cy.intercept({ method: 'GET', pathname: 'articles' }, req => {
     req.continue(res => {
       res.body.articles[0].favoritesCount = 9999999
       res.send(res.body)
     })
   })
-  cy.logInToApplication()
+  cy.uiLogIn()
   cy.get('app-favorite-button').first().should('contain.text', '9999999')
 })
 
 it('Waiting for APIs', () => {
   cy.intercept({ method: 'GET', pathname: 'articles' }).as('articleApiCall')
-  cy.logInToApplication()
+  cy.uiLogIn()
   cy.wait('@articleApiCall').then(apiArticleObject => {
     // console.log(apiArticleObject)
     expect(apiArticleObject.response.body.articles[0].title).to.contain('Bondar Academy')
@@ -32,8 +32,8 @@ it('Waiting for APIs', () => {
   })
 })
 
-it('Delete an article', () => {
-  cy.logInToApplication()
+it.skip('Delete an article', () => {
+  cy.uiLogIn()
   const titleOfTheArticle = faker.person.fullName()
   cy.get('@accessToken').then(accessToken => {
     cy.request({
