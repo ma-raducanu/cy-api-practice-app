@@ -1,0 +1,13 @@
+{
+  "reporterEnabled": "mocha-junit-reporter, cypress-mochawesome-reporter",
+  "mochaJunitReporterReporterOptions": {
+    "mochaFile": "cypress/reports/junit/results-[hash].xml"
+  },
+  "cypressMochawesomeReporterReporterOptions": {
+    "charts": true,
+    "reportPageTitle": "conduit-report",
+    "embeddedScreenshots": true,
+    "inlineAssets": true,
+    "saveAllAttempts": false
+  }
+}

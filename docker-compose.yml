@@ -1,0 +1,9 @@
+services:
+  cypress-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cypress-tests
+    volumes:
+      - ./cypress/reports:/tests/cypress/reports
+    command: ["npm", "run", "cy-run-all"]

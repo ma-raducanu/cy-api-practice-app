@@ -7,11 +7,19 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "cy-run": "npx cypress open --env username=$USERNAME,password=$PASSWORD"
+    "delete-reports": "rimraf -g cypress/reports/",
+    "prereport": "npm run delete-reports",
+    "junit-merge": "npx junit-merge -d cypress/reports/junit -o cypress/reports/junit/merged-results.xml",
+    "cy-run": "npx cypress open --env username=$USERNAME,password=$PASSWORD",
+    "cy-run-all": "npm run prereport && (npx cypress run || echo continuing) && npm run junit-merge"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.6.0",
-    "cypress": "^15.21.1"
+    "cypress": "^15.21.1",
+    "cypress-mochawesome-reporter": "^5.0.0",
+    "cypress-multi-reporters": "^2.0.5",
+    "junit-merge": "^2.0.0",
+    "mocha-junit-reporter": "^2.2.1",
+    "rimraf": "^6.1.3"
   }
 }
