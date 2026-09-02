@@ -3,6 +3,6 @@ declare namespace Cypress {
     /**
      * Opens the home page of the application.
      */
-    logIn(): Chainable<void>
+    logInToApplication(): Chainable<void>
   }
 }
